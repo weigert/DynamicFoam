@@ -4,7 +4,7 @@ Dynamic Foam Simulation / Zero-Player-Game
 
 ## What is this?
 
-This is an implementation of a concept presented to me by Michel van de Gaer.
+This is an implementation of a concept presented to me by **Michel van de Gaer**.
 
 The concept describes a "zero-player-game" played on a "foam", i.e. some form of
 triangle center mesh on a triangulation of the plane.
