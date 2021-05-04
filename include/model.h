@@ -188,7 +188,7 @@ Idea: For every triangle (i.e. point + direction), we can compute two quantities
 
 */
 
-std::vector<int> catchment;
+std::vector<float> catchment;
 
 void accumulate(delaunator::Delaunator d){
 
@@ -197,13 +197,16 @@ void accumulate(delaunator::Delaunator d){
   const size_t halfedgesize = d.triangles.size();
   catchment.resize(halfedgesize);
 
+	for(int i = 0; i < halfedgesize; i++){
+		catchment[i] = 0;
+	}
+
   //Compute the Orbit Distance for every Half-Edge
   for(int i = 0; i < halfedgesize; i++){
 
     //Boolean Visited Array
-    bool visited[halfedgesize] = {false};
+//    bool visited[halfedgesize] = {false};
     int curpos = i;
-    catchment[curpos] = 0;
 
 		for(size_t i = 0; i < convergence; i++){
 			nextpos(d, curpos);
