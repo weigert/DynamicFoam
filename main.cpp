@@ -24,6 +24,7 @@ int main( int argc, char* args[] ) {
 	Triangle triangle;
 	Instance triangleinstance(&triangle);
 	triangleinstance.addBuffer(triangles);
+	triangleinstance.addBuffer(trianglecolor);
 
 	//Create the Shaders
 	Shader pointshader({"shader/point.vs", "shader/point.fs"}, {"in_Position", "in_Color"});
@@ -82,7 +83,10 @@ int main( int argc, char* args[] ) {
 		if(ImGui::BeginTabItem("Visualization")){
 
 			ImGui::DragInt("Path Steps", &pathlength, 1, 1, 100);
-			ImGui::Checkbox("Draw Mesh", &drawmesh);
+			ImGui::Checkbox("Draw Mesh", &drawmesh); ImGui::SameLine();
+			ImGui::Checkbox("Draw Points", &drawpoints);
+
+			ImGui::ColorEdit3("Background", &backcolor[0]);
 			ImGui::ColorEdit3("Mesh Color", &meshcolor[0]);
 
 			ImGui::ColorEdit3("Flow Color", &flowcolor[0]);
@@ -94,6 +98,11 @@ int main( int argc, char* args[] ) {
 			if(ImGui::DragFloat("Line Width", &linewidth, 0.1f, 0.1f, 10.0f)){
 				glLineWidth(linewidth);
 			}
+
+			ImGui::Checkbox("Draw Triangles", &drawtriangles);
+			ImGui::ColorEdit3("Triangle From", &tricolor0[0]);
+			ImGui::ColorEdit3("Triangle To", &tricolor1[0]);
+
 
 			ImGui::EndTabItem();
 
@@ -108,13 +117,15 @@ int main( int argc, char* args[] ) {
 	//Define the rendering pipeline
 	Tiny::view.pipeline = [&](){
 
-		Tiny::view.target(glm::vec3(0));	//Clear Screen to white
+		Tiny::view.target(backcolor);	//Clear Screen to white
 
 		triangleshader.use();
 		triangleinstance.render(GL_TRIANGLE_STRIP);
 
 		pointshader.use();
-		pointmodel.render(GL_POINTS);
+
+		if(drawpoints)
+			pointmodel.render(GL_POINTS);
 
 		//Voronoi Graph
 
@@ -126,7 +137,8 @@ int main( int argc, char* args[] ) {
 		}
 
 		//Render the Particles
-		particlemodel.render(GL_POINTS);
+		if(drawpoints)
+			particlemodel.render(GL_POINTS);
 
 	};
 
@@ -208,6 +220,7 @@ int main( int argc, char* args[] ) {
 		//Buffer the Points and Triangle Indices
 		triangleshader.buffer("points", points);
 		triangleinstance.updateBuffer(triangles, 0);
+		triangleinstance.updateBuffer(trianglecolor, 1);
 
 	});
 

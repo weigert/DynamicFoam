@@ -40,7 +40,14 @@ glm::vec3 flowcolor = glm::vec3(0.85, 0.15, 0.15);
 glm::vec3 edgecolor = glm::vec3(0.15, 0.85, 0.15);
 glm::vec3 meshcolor = glm::vec3(0.35, 0.35, 0.35);
 
+glm::vec3 tricolor0 = glm::vec3(0);
+glm::vec3 tricolor1 = glm::vec3(1);
+
+glm::vec3 backcolor = glm::vec3(0);
+
 bool drawmesh = false;
+bool drawpoints = true;
+bool drawtriangles = false;
 
 /*
 ================================================================================
@@ -51,6 +58,7 @@ bool drawmesh = false;
 std::vector<glm::vec2> points;			//Direct Points
 std::vector<double> coords;					//Coordinates for Delaunation
 std::vector<glm::ivec3> triangles;	//Triangle Point Indexing
+std::vector<glm::vec3> trianglecolor;	//Triangle Point Indexing
 std::vector<glm::vec2> centers;			//Triangle Circumcenters
 
 void initpoints(){
@@ -71,6 +79,7 @@ void initpoints(){
 void deriveproperties(delaunator::Delaunator& d){
 
   triangles.clear();
+	trianglecolor.clear();
   centers.clear();
   for(size_t i = 0; i < d.triangles.size()/3; i++){
 
@@ -84,6 +93,11 @@ void deriveproperties(delaunator::Delaunator& d){
 
 		if(map == 2) //Incenter Map
 			centers.push_back(tri::incenter(points[d.triangles[3*i+0]], points[d.triangles[3*i+1]], points[d.triangles[3*i+2]]));
+
+		if(drawtriangles)
+			trianglecolor.emplace_back(glm::mix(tricolor0, tricolor1, 10.0f*tri::area(points[d.triangles[3*i+0]], points[d.triangles[3*i+1]], points[d.triangles[3*i+2]])));
+		else
+			trianglecolor.emplace_back(backcolor);
 
 	}
 
