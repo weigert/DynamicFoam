@@ -88,6 +88,13 @@ int main( int argc, char* args[] ) {
 			ImGui::ColorEdit3("Flow Color", &flowcolor[0]);
 			ImGui::ColorEdit3("Edge Color", &edgecolor[0]);
 
+			if(ImGui::DragFloat("Point Size", &pointsize, 0.1f, 0.1f, 10.0f)){
+				glPointSize(pointsize);
+			}
+			if(ImGui::DragFloat("Line Width", &linewidth, 0.1f, 0.1f, 10.0f)){
+				glLineWidth(linewidth);
+			}
+
 			ImGui::EndTabItem();
 
 		}

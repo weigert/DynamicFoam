@@ -27,6 +27,9 @@ float energy = 500.0f;
 float scale = 0.2f;
 int pathlength = 10;
 
+float pointsize = 4.0f;
+float linewidth = 1.0f;
+
 bool equilibriation = true;
 bool expansiveflow = false;
 bool contractiveflow = false;
