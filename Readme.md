@@ -9,6 +9,8 @@ This is an implementation of a concept presented to me by **Michel van de Gaer**
 The concept describes a "zero-player-game" played on a "foam", i.e. some form of
 triangle center mesh on a triangulation of the plane.
 
+![Contracting Foam with Equilibrium Distances](screenshots/contracting.png)
+
 ### Dynamics
 
 Based on the angles between the edges, we can assume a least-energy-path for particles moving through the medium. The structure of the foam then allows the paths to converge to periodic orbits, which can also be shaped like knots. The cumulative flow along the edges of the cells can then be used to let the adjacent cells contract and expand.
@@ -21,7 +23,15 @@ The system is initialized using the delaunay triangulation of a set of blue-nois
 
 Particularly for the circumcenter foam, the resulting patterns strongly resemble reaction-diffusion patterns, but with added dynamics and non-static.
 
+![Reaction Diffusion Pattern from Circumcenter Foam](screenshots/rd.png)
+
 Adding cell expansion at higher flow volumes can also result in oscillatory patterns emerging. For the barycenter foam with expansive flow, one can get very nice stable periodic orbits forming in the flow paths.
+
+Expanding Cells at Higher Flow-Rates
+![Expansive Flow Pattern](screenshots/expansive.png)
+
+Barycentric Orbits
+![Barycentric Orbits](screenshots/barycentric.png)
 
 ## Running
 
