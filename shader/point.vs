@@ -1,7 +1,7 @@
-#version 430 core
+#version 130
 
-layout(location = 0) in vec3 in_Position;
-layout(location = 1) in vec3 in_Color;
+in vec3 in_Position;
+in vec3 in_Color;
 
 uniform float zoom = 1.5f;
 

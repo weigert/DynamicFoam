@@ -1,10 +1,10 @@
-#version 430 core
+#version 130
 
-layout (location = 0) in vec3 in_Position;
-layout (location = 3) in ivec3 in_Index;
-layout (location = 4) in vec3 in_Color;
+in vec3 in_Position;
+in ivec3 in_Index;
+in vec3 in_Color;
 
-layout (std430, binding = 0) buffer points {
+buffer points {
   vec2 p[];
 };
 
